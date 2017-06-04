@@ -1,12 +1,19 @@
 <?php
-include "AccesoDatos.php";
+
 class usuario
 {
 	public $id;
  	public $nombre;
-  	public $mail;
   	public $clave;
-  	
+  	public $mail;
+	public $rol;
+	public $sucursal;
+
+private function __construct()
+    {
+
+	}
+
 public static function TraerTodosLosUsuarios()
 {
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
@@ -15,14 +22,16 @@ public static function TraerTodosLosUsuarios()
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "usuario");		
 
 }
-public static function insertarUsuario($nombre,$clave,$mail)
+public static function Insertar($nombre,$clave,$mail,$rol,$sucursal)
 {
 				$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-				$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into usuario (nombre,clave,mail)values(:nombre,:clave,:mail)");
+				$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into usuario (nombre,clave,mail,rol,sucursal)values(:nombre,:clave,:mail,:rol,:sucursal)");
 				$consulta->bindValue(':nombre',$nombre, PDO::PARAM_STR);
 				$consulta->bindValue(':clave',$clave, PDO::PARAM_STR);
 				$consulta->bindValue(':mail',$mail, PDO::PARAM_STR);
-				$consulta->execute();
+				$consulta->bindValue(':rol',$rol, PDO::PARAM_STR);
+				$consulta->bindValue(':sucursal',$sucursal, PDO::PARAM_STR);
+$consulta->execute();
 				return $objetoAccesoDato->RetornarUltimoIdInsertado();
 
 }
@@ -39,21 +48,23 @@ public static function traerUnUsuario($mail,$clave)
 				
 
 }
-public static function actualizarUsuario($id,$nombre,$clave,$mail)
+public static function Actualizar($id,$nombre,$clave,$mail,$rol,$sucursal)
 {
 				$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-				$consulta =$objetoAccesoDato->RetornarConsulta("update usuario set nombre=:nombre, clave=:clave, mail=:mail where id=:id");
+				$consulta =$objetoAccesoDato->RetornarConsulta("update usuario set nombre=:nombre, clave=:clave, mail=:mail,rol=:rol,sucursal=:sucursal where id=:id");
 				$consulta->bindValue(':id',$id, PDO::PARAM_INT);
 				$consulta->bindValue(':nombre',$nombre, PDO::PARAM_STR);
 				$consulta->bindValue(':clave',$clave, PDO::PARAM_STR);
 				$consulta->bindValue(':mail',$mail, PDO::PARAM_STR);
+				$consulta->bindValue(':rol',$rol, PDO::PARAM_STR);
+				$consulta->bindValue(':rol',$sucursal, PDO::PARAM_STR);
 				$consulta->execute();
 				return $consulta;
 }
 
 
 
-public static function BorrarUsuario($id)
+public static function Borrar($id)
 {
 
 $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
