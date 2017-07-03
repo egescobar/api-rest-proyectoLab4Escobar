@@ -19,7 +19,6 @@ $app->post('/usuarios', function (Request $request, Response $response) {
     $rol = $objDatos['rol'];
     $sucursal = $objDatos['sucursal'];
 
-
     Usuario::Insertar($nombre,$clave,$mail,$rol,$sucursal);
     //return $usuarios;
     $response->write(json_encode("se inserto con exito el usuario: " .$nombre));
@@ -52,7 +51,7 @@ $app->put('/usuarios', function (Request $request, Response $response) {
     $sucursal = $objDatos['sucursal'];
 
 
-    Usuario::Actualizar($nombre,$clave,$mail,$rol,$sucursal);
+    Usuario::Actualizar($id,$nombre,$clave,$mail,$rol,$sucursal);
     //return $usuarios;
     $response->write(json_encode("se modifico con exito el usuario: " .$nombre));
     //$response->write(json_encode($objDatos));

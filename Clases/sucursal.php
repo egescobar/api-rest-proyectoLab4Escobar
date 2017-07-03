@@ -1,5 +1,4 @@
 <?php
-include "AccesoDatos.php";
 class sucursal
 {
 	public $id_sucursal;

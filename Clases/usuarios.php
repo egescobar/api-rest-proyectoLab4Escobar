@@ -1,5 +1,4 @@
 <?php
-
 class usuario
 {
 	public $id;
@@ -48,16 +47,22 @@ public static function traerUnUsuario($mail,$clave)
 				
 
 }
+
 public static function Actualizar($id,$nombre,$clave,$mail,$rol,$sucursal)
 {
 				$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-				$consulta =$objetoAccesoDato->RetornarConsulta("update usuario set nombre=:nombre, clave=:clave, mail=:mail,rol=:rol,sucursal=:sucursal where id=:id");
+				$consulta =$objetoAccesoDato->RetornarConsulta("update usuario set 
+				nombre=:nombre, 
+				clave=:clave, 
+				mail=:mail,
+				rol=:rol,
+				sucursal=:sucursal where id=:id");
 				$consulta->bindValue(':id',$id, PDO::PARAM_INT);
 				$consulta->bindValue(':nombre',$nombre, PDO::PARAM_STR);
 				$consulta->bindValue(':clave',$clave, PDO::PARAM_STR);
 				$consulta->bindValue(':mail',$mail, PDO::PARAM_STR);
 				$consulta->bindValue(':rol',$rol, PDO::PARAM_STR);
-				$consulta->bindValue(':rol',$sucursal, PDO::PARAM_STR);
+				$consulta->bindValue(':sucursal',$sucursal, PDO::PARAM_STR);
 				$consulta->execute();
 				return $consulta;
 }
